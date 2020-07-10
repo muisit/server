@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var array $_
+ * @var \OCP\IL10N $l
+ * @var OC_Defaults $theme
+ */
+?>
 <!DOCTYPE html>
 <html class="ng-csp" data-placeholder-focus="false" lang="<?php p($_['language']); ?>" data-locale="<?php p($_['locale']); ?>" >
 	<head data-user="<?php p($_['user_uid']); ?>" data-user-displayname="<?php p($_['user_displayname']); ?>" data-requesttoken="<?php p($_['requesttoken']); ?>">
