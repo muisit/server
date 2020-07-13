@@ -2,6 +2,7 @@
 /**
  * @copyright Copyright (c) 2019 Robin Appelman <robin@icewind.nl>
  *
+ * @author Morris Jobke <hey@morrisjobke.de>
  * @author Robin Appelman <robin@icewind.nl>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
  *
@@ -24,28 +25,33 @@
 
 namespace OCA\Theming\AppInfo;
 
-use OCA\Theming\Service\JSDataService;
-use OCP\AppFramework\IAppContainer;
-use OCP\IInitialStateService;
+use OCA\Theming\Capabilities;
+use OCA\Theming\Listener\LoadAdditionalScriptsListener;
+use OCP\AppFramework\App;
+use OCP\AppFramework\Bootstrap\IBootContext;
+use OCP\AppFramework\Bootstrap\IBootstrap;
+use OCP\AppFramework\Bootstrap\IRegistrationContext;
+use OCP\AppFramework\Http\TemplateResponse;
+use OCP\EventDispatcher\Event;
 
-class Application extends \OCP\AppFramework\App {
+class Application extends App implements IBootstrap {
 	public const APP_ID = 'theming';
 
 	public function __construct() {
 		parent::__construct(self::APP_ID);
-
-		$container = $this->getContainer();
-		$this->registerInitialState($container);
 	}
 
-	private function registerInitialState(IAppContainer $container) {
-		/** @var IInitialStateService $initialState */
-		$initialState = $container->query(IInitialStateService::class);
+	public function register(IRegistrationContext $context): void {
+		$context->registerCapability(Capabilities::class);
+		$context->registerEventListener(TemplateResponse::EVENT_LOAD_ADDITIONAL_SCRIPTS, LoadAdditionalScriptsListener::class);
+	}
 
-		$initialState->provideLazyInitialState(self::APP_ID, 'data', function () use ($container) {
-			/** @var JSDataService $data */
-			$data = $container->query(JSDataService::class);
-			return $data;
+	public function boot(IBootContext $context): void {
+		// TODO migrate this to the new IEventDispatcher
+		$container = $context->getAppContainer();
+		$context->getServerContainer()->getEventDispatcher()->addListener('OCA\Files_Sharing::loadAdditionalScripts', function() use ($container) {
+			$listener = $container->query(LoadAdditionalScriptsListener::class);
+			$listener->handle(new Event());
 		});
 	}
 }
