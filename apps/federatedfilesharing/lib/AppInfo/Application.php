@@ -85,7 +85,8 @@ class Application extends App {
 				$server->query(\OCP\OCS\IDiscoveryService::class),
 				\OC::$server->getJobList(),
 				\OC::$server->getCloudFederationProviderManager(),
-				\OC::$server->getCloudFederationFactory()
+				\OC::$server->getCloudFederationFactory(),
+				$server->query(IEventDispatcher::class)
 			);
 			return new RequestHandlerController(
 				$c->query('AppName'),
@@ -148,7 +149,8 @@ class Application extends App {
 			\OC::$server->query(\OCP\OCS\IDiscoveryService::class),
 			\OC::$server->getJobList(),
 			\OC::$server->getCloudFederationProviderManager(),
-			\OC::$server->getCloudFederationFactory()
+			\OC::$server->getCloudFederationFactory(),
+			\OC::$server->query(IEventDispatcher::class)
 		);
 		$tokenHandler = new \OCA\FederatedFileSharing\TokenHandler(
 			\OC::$server->getSecureRandom()

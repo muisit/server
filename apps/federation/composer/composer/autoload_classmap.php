@@ -15,6 +15,8 @@ return array(
     'OCA\\Federation\\DAV\\FedAuth' => $baseDir . '/../lib/DAV/FedAuth.php',
     'OCA\\Federation\\DbHandler' => $baseDir . '/../lib/DbHandler.php',
     'OCA\\Federation\\Hooks' => $baseDir . '/../lib/Hooks.php',
+    'OCA\\Federation\\Listener\\FederatedShareAddedEventListener' => $baseDir . '/../lib/Listeners/FederatedShareAddedEventListener.php',
+    'OCA\\Federation\\Listener\\SabrePluginAuthInitEventListener' => $baseDir . '/../lib/Listeners/SabrePluginAuthInitEventListener.php',
     'OCA\\Federation\\Middleware\\AddServerMiddleware' => $baseDir . '/../lib/Middleware/AddServerMiddleware.php',
     'OCA\\Federation\\Migration\\Version1010Date20200630191302' => $baseDir . '/../lib/Migration/Version1010Date20200630191302.php',
     'OCA\\Federation\\Settings\\Admin' => $baseDir . '/../lib/Settings/Admin.php',
