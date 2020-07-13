@@ -41,6 +41,8 @@ return array(
     'OCP\\AppFramework\\Http\\DownloadResponse' => $baseDir . '/lib/public/AppFramework/Http/DownloadResponse.php',
     'OCP\\AppFramework\\Http\\EmptyContentSecurityPolicy' => $baseDir . '/lib/public/AppFramework/Http/EmptyContentSecurityPolicy.php',
     'OCP\\AppFramework\\Http\\EmptyFeaturePolicy' => $baseDir . '/lib/public/AppFramework/Http/EmptyFeaturePolicy.php',
+    'OCP\\AppFramework\\Http\\Events\\LoadAdditionalScriptsEvent' => $baseDir . '/lib/public/AppFramework/Http/Events/LoadAdditionalScriptsEvent.php',
+    'OCP\\AppFramework\\Http\\Events\\LoadAdditionalScriptsLoggedInEvent' => $baseDir . '/lib/public/AppFramework/Http/Events/LoadAdditionalScriptsLoggedInEvent.php',
     'OCP\\AppFramework\\Http\\FeaturePolicy' => $baseDir . '/lib/public/AppFramework/Http/FeaturePolicy.php',
     'OCP\\AppFramework\\Http\\FileDisplayResponse' => $baseDir . '/lib/public/AppFramework/Http/FileDisplayResponse.php',
     'OCP\\AppFramework\\Http\\ICallbackResponse' => $baseDir . '/lib/public/AppFramework/Http/ICallbackResponse.php',

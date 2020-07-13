@@ -38,7 +38,13 @@ namespace OCP\AppFramework\Http;
  * @since 6.0.0
  */
 class TemplateResponse extends Response {
+	/**
+	 * @deprecated 20.0.0 use OCP\AppFramework\Http\Events\LoadAdditionalScriptsEvent
+	 */
 	public const EVENT_LOAD_ADDITIONAL_SCRIPTS = self::class . '::loadAdditionalScripts';
+	/**
+	 * @deprecated 20.0.0 use OCP\AppFramework\Http\Events\LoadAdditionalScriptsLoggedInEvent
+	 */
 	public const EVENT_LOAD_ADDITIONAL_SCRIPTS_LOGGEDIN = self::class . '::loadAdditionalScriptsLoggedIn';
 
 	/**
