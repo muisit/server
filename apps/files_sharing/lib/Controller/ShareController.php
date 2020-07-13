@@ -48,6 +48,7 @@ use OC_Util;
 use OC\Security\CSP\ContentSecurityPolicy;
 use OCA\FederatedFileSharing\FederatedShareProvider;
 use OCA\Files_Sharing\Activity\Providers\Downloads;
+use OCA\Files_Sharing\Event\LoadAdditionalScriptsEvent;
 use OCA\Viewer\Event\LoadViewer;
 use OCP\Accounts\IAccountManager;
 use OCP\AppFramework\AuthPublicShareController;
@@ -76,7 +77,6 @@ use OCP\Share\IManager as ShareManager;
 use OCP\Share\IShare;
 use OCP\Template;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
  * Class ShareController
@@ -173,8 +173,7 @@ class ShareController extends AuthPublicShareController {
 	public function showAuthenticate(): TemplateResponse {
 		$templateParameters = ['share' => $this->share];
 
-		$event = new GenericEvent(null, $templateParameters);
-		$this->eventDispatcher->dispatch('OCA\Files_Sharing::loadAdditionalScripts::publicShareAuth', $event);
+		$this->eventDispatcher->dispatch(new LoadAdditionalScriptsEvent($this->share, LoadAdditionalScriptsEvent::SCOPE_PUBLIC_SHARE_AUTH));
 
 		$response = new TemplateResponse('core', 'publicshareauth', $templateParameters, 'guest');
 		if ($this->share->getSendPasswordByTalk()) {
@@ -193,8 +192,7 @@ class ShareController extends AuthPublicShareController {
 	protected function showAuthFailed(): TemplateResponse {
 		$templateParameters = ['share' => $this->share, 'wrongpw' => true];
 
-		$event = new GenericEvent(null, $templateParameters);
-		$this->eventDispatcher->dispatch('OCA\Files_Sharing::loadAdditionalScripts::publicShareAuth', $event);
+		$this->eventDispatcher->dispatch(new LoadAdditionalScriptsEvent($this->share, LoadAdditionalScriptsEvent::SCOPE_PUBLIC_SHARE_AUTH));
 
 		$response = new TemplateResponse('core', 'publicshareauth', $templateParameters, 'guest');
 		if ($this->share->getSendPasswordByTalk()) {
@@ -490,8 +488,7 @@ class ShareController extends AuthPublicShareController {
 		\OCP\Util::addHeader('meta', ['property' => "og:type", 'content' => "object"]);
 		\OCP\Util::addHeader('meta', ['property' => "og:image", 'content' => $ogPreview]);
 
-		$event = new GenericEvent(null, ['share' => $share]);
-		$this->eventDispatcher->dispatch('OCA\Files_Sharing::loadAdditionalScripts', $event);
+		$this->eventDispatcher->dispatch(new LoadAdditionalScriptsEvent($share));
 
 		$csp = new \OCP\AppFramework\Http\ContentSecurityPolicy();
 		$csp->addAllowedFrameDomain('\'self\'');
