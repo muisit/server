@@ -347,19 +347,9 @@ class RegistrationContext {
 	}
 
 	/**
-	 * @param App[] $apps
+	 * @return array[]
 	 */
-	public function delegateSearchProviderRegistration(array $apps, SearchComposer $searchComposer): void {
-		foreach ($this->searchProviders as $registration) {
-			try {
-				$searchComposer->registerProvider($registration['class']);
-			} catch (Throwable $e) {
-				$appId = $registration['appId'];
-				$this->logger->logException($e, [
-					'message' => "Error during search provider registration of $appId: " . $e->getMessage(),
-					'level' => ILogger::ERROR,
-				]);
-			}
-		}
+	public function getSearchProviders(): array {
+		return $this->searchProviders;
 	}
 }

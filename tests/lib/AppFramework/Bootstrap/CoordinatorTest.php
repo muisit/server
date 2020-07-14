@@ -54,9 +54,6 @@ class CoordinatorTest extends TestCase {
 	/** @var IEventDispatcher|MockObject */
 	private $eventDispatcher;
 
-	/** @var SearchComposer|MockObject */
-	private $searchComposer;
-
 	/** @var ILogger|MockObject */
 	private $logger;
 
@@ -70,14 +67,12 @@ class CoordinatorTest extends TestCase {
 		$this->serverContainer = $this->createMock(IServerContainer::class);
 		$this->crashReporterRegistry = $this->createMock(Registry::class);
 		$this->eventDispatcher = $this->createMock(IEventDispatcher::class);
-		$this->searchComposer = $this->createMock(SearchComposer::class);
 		$this->logger = $this->createMock(ILogger::class);
 
 		$this->coordinator = new Coordinator(
 			$this->serverContainer,
 			$this->crashReporterRegistry,
 			$this->eventDispatcher,
-			$this->searchComposer,
 			$this->logger
 		);
 	}
