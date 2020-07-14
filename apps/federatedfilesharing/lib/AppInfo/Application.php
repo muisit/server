@@ -37,6 +37,7 @@ use OCA\FederatedFileSharing\Notifications;
 use OCA\FederatedFileSharing\Notifier;
 use OCA\FederatedFileSharing\OCM\CloudFederationProviderFiles;
 use OCP\AppFramework\App;
+use OCP\EventDispatcher\IEventDispatcher;
 use OCP\GlobalScale\IConfig;
 
 class Application extends App {
@@ -110,7 +111,7 @@ class Application extends App {
 		$federatedShareProvider = $this->getFederatedShareProvider();
 
 		$manager->registerNotifierService(Notifier::class);
-		
+
 		$eventDispatcher->addListener(
 			'OCA\Files::loadAdditionalScripts',
 			function () use ($federatedShareProvider) {
